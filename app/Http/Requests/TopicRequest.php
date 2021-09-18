@@ -1,13 +1,14 @@
 <?php
 
 namespace App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class TopicRequest extends Request
 {
-    public function __construct()
-    {
-        $this->middleware('auth', ['except' => ['index', 'show']]);
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth', ['except' => ['index', 'show']]);
+    // }
 
     public function rules()
     {
