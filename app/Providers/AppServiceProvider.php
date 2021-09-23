@@ -26,6 +26,9 @@ class AppServiceProvider extends ServiceProvider
     {
         Schema::defaultStringLength(191);
 
+
+        \App\Models\Topic::observe(\App\Observers\TopicObserver::class); //观察器需要注册
+
         \Illuminate\Pagination\Paginator::useBootstrap();
     }
 }
