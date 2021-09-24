@@ -11,20 +11,26 @@ use App\Notifications\TopicReplied;
 
 class ReplyObserver
 {
-    public function creating(Reply $reply)
+    public function created(Reply $reply)
     {
-        $reply->content = clean($reply->content, 'user_topic_body');
-
-        // $reply->topic->increment('reply_count', 1);
-        $reply->topic->reply_count = $reply->topic->replies->count();
-        $reply->topic->save();
-
+        $reply->topic->updateReplyCount();
         // 通知话题作者有新的评论
         $reply->topic->user->notify(new TopicReplied($reply));
     }
 
-    public function updating(Reply $reply)
+    public function creating(Reply $reply)
     {
-        //
+        $reply->content = clean($reply->content, 'user_topic_body');
+    }
+
+    public function deleted(Reply $reply)
+    {
+        $reply->topic->updateReplyCount();
+    }
+
+    public function updateReplyCount()
+    {
+        $this->reply_count = $this->replies->count();
+        $this->save();
     }
 }
