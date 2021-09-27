@@ -34,6 +34,8 @@ class AppServiceProvider extends ServiceProvider
 
         \App\Models\Topic::observe(\App\Observers\TopicObserver::class); //观察器需要注册
 
+        \App\Models\Link::observe(\App\Observers\LinkObserver::class);
+
         \Illuminate\Pagination\Paginator::useBootstrap();
     }
 }
